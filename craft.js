@@ -46,6 +46,7 @@ function selectItem() {
     document.getElementById("crafting-description").innerText = selectedItem["description"];
 
     const ul = document.getElementById("crafting-requirements");
+    ul.innerHTML = "";
 
     selectedItem["requirements"].forEach((requirement) => {
         const li = document.createElement("li");
