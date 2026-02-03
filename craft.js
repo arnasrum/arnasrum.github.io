@@ -20,9 +20,7 @@ fetch("https://thoughtful-vagabond-fibre.glitch.me")
   .then((response) => response.json())
   .then((data) => {
     tools = data;
-
     selectElement.innerHTML = "";
-
     data.forEach((item) => {
       const option = document.createElement("option");
       option.value = item.id;
@@ -30,7 +28,7 @@ fetch("https://thoughtful-vagabond-fibre.glitch.me")
       selectElement.appendChild(option);
     });
   })
-  .then(() => console.log(tools))
+    .then(selectItem)
   .catch((err) => console.error(err));
 
 function selectItem() {
@@ -54,8 +52,11 @@ function selectItem() {
         ul.appendChild(li);
     });
 
-
     document.getElementById("crafting-tool-image").src = selectedItem["img-url"];
 
     //updateSurvivorUI();
+}
+
+function handleCraftClick() {
+
 }
