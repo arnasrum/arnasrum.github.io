@@ -9,17 +9,34 @@
 
     <div id="main-game">
         <div id="survivor">
-            <h2>Survivor</h2>
+            <div id="survivor-display">
+                <h2>Survivor</h2>
+                <img id="survivor-image" src="img.png" alt="Survivor"/>
+                <label>Energy: <span id="energy-bar"></span></label>
+            </div>
+
             <div id="resources">
                 <label>Wood: <span id="wood"></span></label>
                 <label>Vines: <span id="vines"></span></label>
                 <label>Food: <span id="food"></span></label>
                 <label>Stone: <span id="stone"></span></label>
             </div>
-            <label>Energy: <span id="energy"></span></label>
+
+            <div id="survivor-inventory">
+                <ul id="inventory-list">
+                </ul>
+            </div>
+
         </div>
+
         <div id="actions">
             <h2>Actions</h2>
+            <div id="action-buttons">
+                <button id="hunt-button">Hunt</button>
+                <button id="gather-button">Gather</button>
+                <button id="rest-button">Rest</button>
+                <button id="sail-button">Sail Away</button>
+            </div>
         </div>
         <div id="crafting">
             <h2>Crafting</h2>

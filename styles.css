@@ -14,12 +14,27 @@ div {
 #resources {
     display: flex;
     flex-direction: column;
+    align-self: center;
 }
 
 #survivor {
+    display: flex;
     flex-basis: 50%;
     grid-column: span 2;
     background-color: olivedrab;
+}
+
+#survivor-image {
+    max-height: 20vh;
+    max-width: 20vw;
+}
+
+#survivor-display {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
 #actions {
@@ -30,4 +45,15 @@ div {
 #crafting {
     grid-column: span 3;
     background-color: peachpuff;
+}
+
+#action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-evenly;
+}
+
+#action-buttons button {
+    background-color: indianred;
 }
