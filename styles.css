@@ -57,3 +57,20 @@ div {
 #action-buttons button {
     background-color: indianred;
 }
+
+#crafting-display {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+}
+
+#crafting-tool-info {
+    display: flex;
+
+}
+
+#crafting-tool-image {
+    max-height: 20vh;
+    max-width: 20vw;
+}

@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Page Title</title>
+    <script src="index.js" defer></script>
+    <script src="craft.js" defer></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -40,9 +42,29 @@
         </div>
         <div id="crafting">
             <h2>Crafting</h2>
+            <div>
+                <div id="crafting-display">
+                    <div id="crafting-tool-info" hidden>
+                        <div id="crafting-tool">
+                            <h3 id="crafting-tool-title">Title</h3>
+                            <p id="crafting-description">Description</p>
+                            <ul id="crafting-requirements">
+                            </ul>
+                        </div>
+                        <img id="crafting-tool-image"
+                             src="https://res.cloudinary.com/dvwpcohmk/image/upload/v1770034535/SuperSpear_ttfpor.png"
+                             alt="Tool Image"
+                        >
+                    </div>
+                    <div id="crafting-actions">
+                        <label for="craft-item-select">Item: </label><select id="craft-item-select"></select>
+                        <button id="craft-button">Craft</button>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
 
-    <script src="index.js"></script>
 </body>
 </html>

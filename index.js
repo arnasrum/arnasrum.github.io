@@ -7,12 +7,6 @@ let gatherWoodMultiplier = 1;
 let stoneMultiplier = 1;
 let huntFoodMultiplier = 1;
 
-
-
-
-
-
-
 const resources = { wood: 20, vines: 10, food: 30, stone: 20 };
 const craftedItems= [];
 let energy = 70;
