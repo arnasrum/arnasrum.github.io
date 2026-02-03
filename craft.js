@@ -14,7 +14,9 @@ let tools = [];
 let selectedItem = null;
 
 const selectElement = document.getElementById("craft-item-select");
+const craftButton = document.getElementById("craft-button");
 selectElement.addEventListener("change", selectItem)
+craftButton.addEventListener("click", handleCraftClick)
 
 fetch("https://thoughtful-vagabond-fibre.glitch.me")
   .then((response) => response.json())
@@ -54,8 +56,20 @@ function selectItem() {
 
     document.getElementById("crafting-tool-image").src = selectedItem["img-url"];
 
-    //updateSurvivorUI();
+
+    const craftCost = {};
+    selectedItem["requirements"].forEach((requirement) => {
+        const [amount, item] = requirement.split(" ");
+        craftCost[item] = Number(amount);
+    });
+
+    const canCraft = Object.entries(craftCost).every(([key, value]) => {
+        const survivorResources = resources?.[key] ?? 0;
+        return survivorResources >= value;
+    });
+    craftButton.disabled = !canCraft;
 }
+
 
 function handleCraftClick() {
 

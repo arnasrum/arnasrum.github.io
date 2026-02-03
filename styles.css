@@ -67,7 +67,12 @@ div {
 
 #crafting-tool-info {
     display: flex;
+}
 
+#crafting-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 #crafting-tool-image {
