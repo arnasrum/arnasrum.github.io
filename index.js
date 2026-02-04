@@ -2,6 +2,7 @@
 const GATHER_ENERGY_COST = 10;
 const HUNT_ENERGY_COST = 20;
 const REST_FOOD_COST = 10;
+const SAIL_ENERGY_COST = 40;
 
 let gatherWoodMultiplier = 1;
 let stoneMultiplier = 1;
@@ -53,7 +54,7 @@ function updateSurvivorUI() {
     document.getElementById("rest-button").disabled = resources.food < REST_FOOD_COST || energy >= 100;
 
     const boat = [...itemInventory].map(item => item.id).some(id => id === 5);
-    document.getElementById("sail-button").disabled = (resources.food < REST_FOOD_COST || !boat);
+    document.getElementById("sail-button").disabled = (energy < SAIL_ENERGY_COST || !boat);
 
     document.getElementById("energy-bar").textContent = `${energy}%`;
 
