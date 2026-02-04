@@ -1,0 +1,43 @@
+
+#survivor {
+    display: flex;
+    flex-basis: 50%;
+    grid-column: span 2;
+    background-color: olivedrab;
+}
+
+#survivor-inventory {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1
+}
+
+#inventory-acquired {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 8px;
+    align-items: start;
+    justify-content: space-around;
+    width: 100%;
+}
+
+#inventory-acquired > * {
+    flex: 0 0 auto;
+    width: 50%
+}
+
+#survivor-image {
+    max-height: 20vh;
+    max-width: 20vw;
+}
+
+#survivor-display {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}

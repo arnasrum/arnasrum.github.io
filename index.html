@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Page Title</title>
+
+    <script src="survivorState.js" defer></script>
     <script src="index.js" defer></script>
     <script src="craft.js" defer></script>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="survivor.css">
 </head>
 <body>
 
@@ -17,16 +20,22 @@
                 <label>Energy: <span id="energy-bar"></span></label>
             </div>
 
-            <div id="resources">
-                <label>Wood: <span id="wood"></span></label>
-                <label>Vines: <span id="vines"></span></label>
-                <label>Food: <span id="food"></span></label>
-                <label>Stone: <span id="stone"></span></label>
-            </div>
+
 
             <div id="survivor-inventory">
-                <ul id="inventory-list">
-                </ul>
+                <h2 id="inventory-title">Inventory</h2>
+                <div id="inventory-acquired">
+                    <div id="resources">
+                        <label for="wood">Wood: <span id="wood"></span></label>
+                        <label for="vine">Vines: <span id="vine"></span></label>
+                        <label for="food">Food: <span id="food"></span></label>
+                        <label for="stone">Stone: <span id="stone"></span></label>
+                        <label for="obsidian">Obsidian: <span id="obsidian"></span></label>
+                        <label for="rare fang">Rare Fang: <span id="rare fang"></span></label>
+                    </div>
+                    <ul id="inventory-list"></ul>
+                </div>
+
             </div>
 
         </div>

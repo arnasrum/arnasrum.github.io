@@ -1,3 +1,5 @@
+// import {resources, itemInventory} from "./survivorState.js";
+
 `
 item: 
 {
@@ -10,8 +12,9 @@ item:
 }
 `
 
-let tools = [];
+let availableTools = [];
 let selectedItem = null;
+let selectedItemCraftingCost = {};
 
 const selectElement = document.getElementById("craft-item-select");
 const craftButton = document.getElementById("craft-button");
@@ -19,27 +22,26 @@ selectElement.addEventListener("change", selectItem)
 craftButton.addEventListener("click", handleCraftClick)
 
 fetch("https://thoughtful-vagabond-fibre.glitch.me")
-  .then((response) => response.json())
-  .then((data) => {
-    tools = data;
-    selectElement.innerHTML = "";
-    data.forEach((item) => {
-      const option = document.createElement("option");
-      option.value = item.id;
-      option.textContent = item.title;
-      selectElement.appendChild(option);
-    });
-  })
+    .then((response) => response.json())
+    .then((data) => {
+        availableTools = data;
+        return data;
+    })
+    .then(tools => {
+        selectElement.innerHTML = "";
+        tools.forEach((item) => {
+            const option = document.createElement("option");
+            option.value = item.id;
+            option.textContent = item.title;
+            selectElement.appendChild(option);
+        });
+    })
     .then(selectItem)
-  .catch((err) => console.error(err));
+    .catch((err) => console.error(err));
 
 function selectItem() {
 
-    selectedItem = tools.filter((item) => item["id"] === Number(selectElement.value))[0];
-
-    console.log("selected item", selectedItem);
-
-    document.getElementById("crafting-tool-info").hidden = false;
+    selectedItem = availableTools.filter((item) => item["id"] === Number(selectElement.value))[0];
 
     document.querySelector("#crafting-tool h3").innerText = selectedItem["title"];
 
@@ -57,20 +59,38 @@ function selectItem() {
     document.getElementById("crafting-tool-image").src = selectedItem["img-url"];
 
 
-    const craftCost = {};
+    selectedItemCraftingCost = {};
     selectedItem["requirements"].forEach((requirement) => {
         const [amount, item] = requirement.split(" ");
-        craftCost[item] = Number(amount);
+        selectedItemCraftingCost[item] = Number(amount);
     });
 
-    const canCraft = Object.entries(craftCost).every(([key, value]) => {
-        const survivorResources = resources?.[key] ?? 0;
-        return survivorResources >= value;
+    const sufficientResourcesForCrafting = Object.entries(selectedItemCraftingCost).every(([key, value]) => {
+        const survivorResource = resources?.[key] ?? 0;
+        return survivorResource >= value;
     });
-    craftButton.disabled = !canCraft;
+
+    craftButton.disabled = !sufficientResourcesForCrafting;
+    //itemInventory.has(selectedItem) ? (craftButton.innerText = "Salvage") : (craftButton.innerText = "Craft");
+    if(itemInventory.has(selectedItem)) {
+        craftButton.innerText = "Salvage";
+        craftButton.disabled = true;
+    } else {
+        craftButton.innerText = "Craft";
+    }
 }
 
 
 function handleCraftClick() {
 
+    const sufficientResources = Object.keys(selectedItemCraftingCost).every(key => resources[key] >= selectedItemCraftingCost[key]);
+    if (!sufficientResources) return;
+
+    Object.keys(selectedItemCraftingCost).forEach(key => resources[key] -= selectedItemCraftingCost[key]);
+    itemInventory.add(selectedItem);
+
+    itemInventory.forEach(item => activeEffects.add(item["effect"]));
+
+    selectItem();
+    updateSurvivorUI();
 }

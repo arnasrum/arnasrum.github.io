@@ -17,25 +17,6 @@ div {
     align-self: center;
 }
 
-#survivor {
-    display: flex;
-    flex-basis: 50%;
-    grid-column: span 2;
-    background-color: olivedrab;
-}
-
-#survivor-image {
-    max-height: 20vh;
-    max-width: 20vw;
-}
-
-#survivor-display {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
 
 #actions {
     flex-basis: 50%;
@@ -67,6 +48,8 @@ div {
 
 #crafting-tool-info {
     display: flex;
+    background-color: aliceblue;
+    border: solid 1px black;
 }
 
 #crafting-actions {
@@ -76,6 +59,17 @@ div {
 }
 
 #crafting-tool-image {
+    flex: 0 0 auto;
     max-height: 20vh;
     max-width: 20vw;
+}
+
+#crafting-description {
+    width: 70%;
+    margin: 0;
+}
+
+#crafting-tool {
+    flex: 1 1 auto;
+    min-width: 0;
 }

@@ -7,71 +7,79 @@ let gatherWoodMultiplier = 1;
 let stoneMultiplier = 1;
 let huntFoodMultiplier = 1;
 
-const resources = { wood: 20, vines: 10, food: 30, stone: 20 };
-const craftedItems= [];
-let energy = 70;
-
-document.getElementById("sail-button").disabled = true;
-
 function getRandomInt(min, max) {
-  return Math.max(min, Math.floor(Math.random() * (max + 1)));
+    return Math.max(min, Math.floor(Math.random() * (max + 1)));
 }
 
 function handleGatherClick() {
-  energy -= GATHER_ENERGY_COST;
-  resources.wood += getRandomInt(1, 10);
-  resources.food += getRandomInt(1, 10);
-  resources.wood += getRandomInt(1, 10) * gatherWoodMultiplier;
-  resources.stone += getRandomInt(1, 5);
-  updateSurvivorUI();
+    energy -= GATHER_ENERGY_COST;
+    resources.vine += getRandomInt(1, 10);
+    resources.food += getRandomInt(1, 10);
+    resources.wood += getRandomInt(1, 10) * gatherWoodMultiplier;
+    resources.stone += getRandomInt(1, 5);
+    updateSurvivorUI();
 }
 
 function handleHuntClick() {
-  energy -= HUNT_ENERGY_COST;
-  resources.food += getRandomInt(1, 20) * huntFoodMultiplier;
-  updateSurvivorUI();
+    energy -= HUNT_ENERGY_COST;
+    const foodGained = getRandomInt(1, 20);
+    console.log("Without multiplier", foodGained)
+    console.log("With multiplier", foodGained * huntFoodMultiplier)
+    resources.food += foodGained * huntFoodMultiplier;
+
+    updateSurvivorUI();
 }
 
 function handleRestClick() {
-  energy += getRandomInt(1, 20);
-  energy = Math.min(energy, 100);
-  resources.food -= 10;
-  updateSurvivorUI();
+    energy += getRandomInt(1, 20);
+    energy = Math.min(energy, 100);
+    resources.food -= 10;
+    updateSurvivorUI();
 }
 
 function handleSailClick() {
-  energy -= 40;
-  updateSurvivorUI();
-  alert("You sail away!");
+    energy -= 40;
+    updateSurvivorUI();
+    alert("You sail away!");
 }
 
 
 function updateSurvivorUI() {
 
-  document.getElementById("gather-button").disabled = energy < GATHER_ENERGY_COST;
-  document.getElementById("hunt-button").disabled = energy < HUNT_ENERGY_COST;
-  document.getElementById("rest-button").disabled = resources.food < REST_FOOD_COST || energy >= 100;
-  document.getElementById("sail-button").disabled = resources.food < REST_FOOD_COST;
+    document.getElementById("gather-button").disabled = energy < GATHER_ENERGY_COST;
+    document.getElementById("hunt-button").disabled = energy < HUNT_ENERGY_COST;
+    document.getElementById("rest-button").disabled = resources.food < REST_FOOD_COST || energy >= 100;
 
-  document.getElementById("energy-bar").textContent = `${energy}%`;
+    const boat = [...itemInventory].map(item => item.id).some(id => id === 5);
+    document.getElementById("sail-button").disabled = (resources.food < REST_FOOD_COST || !boat);
 
-  Object.entries(resources).forEach(([key, value]) => {
-    document.getElementById(key).textContent = value.toString();
-  });
+    document.getElementById("energy-bar").textContent = `${energy}%`;
+
+    Object.entries(resources).forEach(([key, value]) => {
+        document.getElementById(key).textContent = value.toString();
+    });
 
 
-  const craftedList = document.getElementById("inventory-list");
+    const craftedList = document.getElementById("inventory-list");
 
-  craftedList.innerHTML = "";
+    craftedList.innerHTML = "";
 
-  // Fix this
-  Object.entries(craftedItems).forEach(([itemName]) => {
-    const li = document.createElement("li");
-    li.textContent = `${itemName}`;
-    craftedList.appendChild(li);
-  });
+    itemInventory.forEach((item) => {
+        const li = document.createElement("li");
+        li.innerText = `${item.title}`;
+        craftedList.appendChild(li);
+    });
+
+    itemInventory.forEach((item) => {
+        activeEffects.add(item["effect"]);
+    })
+
+    if(activeEffects.has("double_wood")) gatherWoodMultiplier = 20;
+    if(activeEffects.has("quadruple_wood")) gatherWoodMultiplier = 4;
+    if(activeEffects.has("double_hunt")) huntFoodMultiplier = 20;
+    if(activeEffects.has("quadruple_hunt")) huntFoodMultiplier = 4;
+
 }
-
 
 document.getElementById("gather-button").addEventListener("click", handleGatherClick);
 document.getElementById("hunt-button").addEventListener("click", handleHuntClick);
