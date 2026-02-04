@@ -17,11 +17,11 @@
 #inventory-acquired {
     display: flex;
     flex-direction: row;
-    overflow-x: auto;
+    overflow-x: scroll;
     gap: 8px;
     align-items: start;
     justify-content: space-around;
-    width: 100%;
+    width: 15vw;
 }
 
 #inventory-acquired > * {

@@ -17,15 +17,17 @@ function handleGatherClick() {
     resources.food += getRandomInt(1, 10);
     resources.wood += getRandomInt(1, 10) * gatherWoodMultiplier;
     resources.stone += getRandomInt(1, 5);
+    if(getRandomInt(1, 100) <= 10)
+        resources.obsidian += 1;
     updateSurvivorUI();
 }
 
 function handleHuntClick() {
     energy -= HUNT_ENERGY_COST;
-    const foodGained = getRandomInt(1, 20);
-    console.log("Without multiplier", foodGained)
-    console.log("With multiplier", foodGained * huntFoodMultiplier)
-    resources.food += foodGained * huntFoodMultiplier;
+    resources.food +=  getRandomInt(1, 20) * huntFoodMultiplier;
+    if(getRandomInt(1, 100) <= 10)
+        resources.rarefang += 1;
+
 
     updateSurvivorUI();
 }
