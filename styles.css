@@ -50,6 +50,9 @@ div {
     display: flex;
     background-color: aliceblue;
     border: solid 1px black;
+    width: 90%;
+    height: 25vh;
+    overflow-y: scroll;
 }
 
 #crafting-actions {

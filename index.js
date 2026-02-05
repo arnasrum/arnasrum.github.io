@@ -24,7 +24,7 @@ function handleGatherClick() {
 }
 
 function handleHuntClick() {
-    if(resources.food < HUNT_ENERGY_COST) return;
+    if(energy < HUNT_ENERGY_COST) return;
     energy -= HUNT_ENERGY_COST;
     resources.food += getRandomInt(1, 20) * huntFoodMultiplier;
     if(getRandomInt(1, 100) <= 10)
@@ -49,6 +49,8 @@ function handleSailClick() {
 
 
 function updateSurvivorUI() {
+
+
 
     document.getElementById("gather-button").disabled = energy < GATHER_ENERGY_COST;
     document.getElementById("hunt-button").disabled = energy < HUNT_ENERGY_COST;
@@ -82,6 +84,10 @@ function updateSurvivorUI() {
     if(activeEffects.has("quadruple_wood")) gatherWoodMultiplier = 4;
     if(activeEffects.has("double_hunt")) huntFoodMultiplier = 2;
     if(activeEffects.has("quadruple_hunt")) huntFoodMultiplier = 4;
+
+    if(energy < HUNT_ENERGY_COST && energy < GATHER_ENERGY_COST && resources.food < REST_FOOD_COST) {
+        alert("You are too tired to do anything! You died :(");
+    }
 
 }
 
