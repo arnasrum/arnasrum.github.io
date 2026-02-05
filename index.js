@@ -5,14 +5,14 @@ const REST_FOOD_COST = 10;
 const SAIL_ENERGY_COST = 40;
 
 let gatherWoodMultiplier = 1;
-let stoneMultiplier = 1;
 let huntFoodMultiplier = 1;
 
 function getRandomInt(min, max) {
-    return Math.max(min, Math.floor(Math.random() * (max + 1)));
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function handleGatherClick() {
+    if(energy < GATHER_ENERGY_COST) return;
     energy -= GATHER_ENERGY_COST;
     resources.vine += getRandomInt(1, 10);
     resources.food += getRandomInt(1, 10);
@@ -24,23 +24,24 @@ function handleGatherClick() {
 }
 
 function handleHuntClick() {
+    if(resources.food < HUNT_ENERGY_COST) return;
     energy -= HUNT_ENERGY_COST;
-    resources.food +=  getRandomInt(1, 20) * huntFoodMultiplier;
+    resources.food += getRandomInt(1, 20) * huntFoodMultiplier;
     if(getRandomInt(1, 100) <= 10)
         resources.rarefang += 1;
-
-
     updateSurvivorUI();
 }
 
 function handleRestClick() {
+    if(resources.food < REST_FOOD_COST) return;
     energy += getRandomInt(1, 20);
     energy = Math.min(energy, 100);
-    resources.food -= 10;
+    resources.food -= REST_FOOD_COST;
     updateSurvivorUI();
 }
 
 function handleSailClick() {
+    if(energy < SAIL_ENERGY_COST) return;
     energy -= 40;
     updateSurvivorUI();
     alert("You sail away!");
@@ -77,9 +78,9 @@ function updateSurvivorUI() {
         activeEffects.add(item["effect"]);
     })
 
-    if(activeEffects.has("double_wood")) gatherWoodMultiplier = 20;
+    if(activeEffects.has("double_wood")) gatherWoodMultiplier = 2;
     if(activeEffects.has("quadruple_wood")) gatherWoodMultiplier = 4;
-    if(activeEffects.has("double_hunt")) huntFoodMultiplier = 20;
+    if(activeEffects.has("double_hunt")) huntFoodMultiplier = 2;
     if(activeEffects.has("quadruple_hunt")) huntFoodMultiplier = 4;
 
 }

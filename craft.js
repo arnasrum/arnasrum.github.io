@@ -90,7 +90,6 @@ function selectItem() {
         craftButton.innerText = "Craft";
     }
 
-    console.log(selectedItemCraftingCost);
 }
 
 
