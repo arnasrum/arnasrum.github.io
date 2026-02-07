@@ -1,8 +1,8 @@
-import {getSelectedItem} from "./getSelectedItem.js";
+import {getItemById} from "./getItemId.js";
 
 export function craftingCost(state) {
 
-    const selectedItem = getSelectedItem(state);
+    const selectedItem = getItemById(state.ui.selectedItemId, state.ui.availableTools);
     const selectedItemCraftingCost = {};
     selectedItem.requirements.forEach((requirement) => {
         const match = requirement.match(/^(\d+)\s+(.+)$/);

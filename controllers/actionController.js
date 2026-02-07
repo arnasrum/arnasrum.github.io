@@ -20,7 +20,6 @@ export function setUpActionHandlers() {
     });
     document.getElementById("sail-button").addEventListener("click", () => {
         performSail();
-        render(state);
         alert("You sail away!");
     });
 

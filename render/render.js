@@ -1,6 +1,6 @@
 import {ACTION_COSTS} from "../config/actionCosts.js";
 import {craftingCost} from "../logic/craftingCost.js";
-import {getSelectedItem} from "../logic/getSelectedItem.js";
+import {getItemById} from "../logic/getItemId.js";
 
 
 export function render(state) {
@@ -18,7 +18,7 @@ export function render(state) {
         document.getElementById(key).textContent = value.toString();
     });
 
-    const selectedItem = getSelectedItem(state);
+    const selectedItem = getItemById(state.ui.selectedItemId, state.ui.availableTools);
 
     document.getElementById("crafting-tool-title").innerText = selectedItem.title;
 
@@ -36,15 +36,13 @@ export function render(state) {
     document.getElementById("crafting-tool-image").src = selectedItem["img-url"];
 
 
-
-
     const craftedList = document.getElementById("inventory-list");
 
     craftedList.innerHTML = "";
 
     state.itemInventory.forEach((itemId) => {
         const li = document.createElement("li");
-        li.innerText = `${itemId}`;
+        li.innerText = `${getItemById(itemId, state.ui.availableTools).title}`;
         craftedList.appendChild(li);
     });
 
@@ -59,7 +57,6 @@ export function render(state) {
 
     const craftButton = document.getElementById("craft-button");
     craftButton.disabled = !sufficientResourcesForCrafting;
-    //itemInventory.has(selectedItem) ? (craftButton.innerText = "Salvage") : (craftButton.innerText = "Craft");
     if(state.itemInventory.has(state.ui.selectedItemId)) {
         craftButton.innerText = "Salvage";
         craftButton.disabled = true;

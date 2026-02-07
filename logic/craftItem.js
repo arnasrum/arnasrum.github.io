@@ -1,10 +1,10 @@
 import {craftingCost} from "./craftingCost.js";
-import {getSelectedItem} from "./getSelectedItem.js";
+import {getItemById} from "./getItemId.js";
 
 
 export function craftItem(state) {
 
-    const selectedItem = getSelectedItem(state);
+    const selectedItem = getItemById(state.ui.selectedItemId, state.ui.availableTools);
 
     const selectedItemCraftingCost = craftingCost(state);
 
